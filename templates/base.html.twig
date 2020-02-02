@@ -34,8 +34,8 @@
                 <a href="javascript:void(0);" class="bars"></a>
             {% endif %}
 
-            <a class="navbar-brand" href="/home">
-                GINFO
+            <a class="navbar-brand" href="/">
+                MyCentraleEmprunts
             </a>
 
         </div>
@@ -58,25 +58,6 @@
     </div>
 </nav>
 
-<section>
-    <aside id="leftsidebar" class="sidebar">
-        <div class="menu">
-            <ul class="list">
-                <li class="header">Menu</li>
-                <li {% if app.request.pathInfo starts with "/page1" %}class="active"{% endif %}>
-                    <a href="/page1">
-                        <i class="material-icons">search</i> <span>Page 1</span>
-                    </a>
-                </li>
-                <li {% if app.request.pathInfo starts with "/page2" %}class="active"{% endif %}>
-                    <a href="/page2" id="link_add">
-                        <i class="material-icons">add</i> <span>Page 2</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </aside>
-</section>
 
 <section class="content">
     <div class="container-fluid">
