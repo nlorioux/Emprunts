@@ -12,7 +12,7 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        for($i = 1;$i<=15;$i++){
+        for($i = 1;$i<=10;$i++){
             $user = new User();
             $user->setUsername("username $i")
                 ->setFirstName("Prénom $i")
@@ -25,30 +25,26 @@ class AppFixtures extends Fixture
                 } else {
                     $user->setRoles(['ROLE_USER']);
                 }
-            $manager->persist($user);
-        }
-
-        for($i = 1;$i<=30;$i++){
-            $equipment = new Equipment();
-            $equipment->setName("Materiel $i")
-                    ->setDescription("Ce matériel $i est super cool!")
-                    ->setQuantity("$i")
-                    ->setAvailableStock($i-1)
+            for($k = 1;$k<=2;$k++){
+                $equipment = new Equipment();
+                $equipment->setName("Materiel $i$k")
+                    ->setDescription("Ce matériel $i$k est super cool!")
+                    ->setQuantity("$k")
+                    ->setAvailableStock($k-1)
                     ->setAllowedDays("3")
-                    ->setUid("$i$i$i");
-            $manager->persist($equipment);
-        }
-
-        for($i = 1;$i<=40;$i++){
-            $borrowing = new Borrowing();
-            $borrowing->setLendBy($user)
+                    ->setUid("$k$k$k");
+                $manager->persist($equipment);
+                $borrowing = new Borrowing();
+                $borrowing->setLendBy($user)
                     ->setBorrowedBy($user)
                     ->setEquipment($equipment)
                     ->setStartedOn(new \DateTime())
                     ->setEndedOn(new \DateTime())
                     ->setAllowedDays("7")
                     ->setRemarks("Ce matériel avait déjà été abimé par un gros rageux.");
-            $manager->persist($borrowing);
+                $manager->persist($borrowing);
+            }
+            $manager->persist($user);
         }
 
         $manager->flush();
