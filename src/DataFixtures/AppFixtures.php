@@ -8,16 +8,27 @@ use App\Entity\User;
 use App\Entity\Equipment;
 use App\Entity\Borrowing;
 
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 class AppFixtures extends Fixture
 {
+    private $encoder;
+
+    public function __construct(UserPasswordEncoderInterface $encoder)
+    {
+        $this->encoder = $encoder;
+    }
+
     public function load(ObjectManager $manager)
     {
+
         for($i = 1;$i<=10;$i++){
             $user = new User();
             $user->setUsername("username $i")
                 ->setFirstName("Prénom $i")
-                ->setLastName("Nom $i")
-                ->setPassword("mdp $i")
+                ->setLastName("Nom $i");
+            $password = $this->encoder->encodePassword($user,"mdp $i");
+            $user->setPassword($password)
                 ->setEmail("username$i@ec-m.fr")
                 ->setUid("2019$i$i$i$i");
                 if($i==1) {
