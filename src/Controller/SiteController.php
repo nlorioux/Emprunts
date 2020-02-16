@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Equipment;
+use App\Repository\EquipmentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -20,8 +22,11 @@ class SiteController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function home()
+    public function home(EquipmentRepository $repo)
     {
-        return $this->render('site/home.html.twig');
+        $equipements = $repo->findAll();
+
+        return $this->render('site/home.html.twig',[
+            'equipements'=>$equipements]);
     }
 }

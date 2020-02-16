@@ -1,3 +1,39 @@
+html{
+    position: relative;
+    min-height: 100%;
+}
+
 body {
     background-color: lightgray;
+    margin-bottom: 20px;
+}
+
+.center{
+    text-align: center;
+}
+
+.signup-box{
+    position: absolute; /* postulat de départ */
+    top: 50%; left: 50%; /* à 50%/50% du parent référent */
+    transform: translate(-50%, -50%); /* décalage de 50% de sa propre taille */
+}
+.footer {
+    position : absolute;
+    bottom: 0px;
+    left:0px;
+    width:100%;
+    height: 40px;
+    line-height: 40px;
+}
+
+.footer-content {
+    border-top: 1px solid #eee;
+    background-color: #fff;
+    font-size: 8pt;
+    text-align: center;
+}
+
+
+#app-notifs{
+    display: none;
 }

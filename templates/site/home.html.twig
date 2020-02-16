@@ -47,49 +47,16 @@
                     </tr>
                     </thead>
                     <tbody>
+                    {% for equipement in equipements %}
                     <tr>
-                        <td>Câble ethernet</td>
-                        <td>25</td>
-                        <td>12</td>
+                        <td>{{ equipement.name }}</td>
+                        <td>{{ equipement.quantity }}</td>
+                        <td>{{ equipement.availableStock }}</td>
                         <td><button type="button" class="btn bg-orange btn-xs waves-effect">
-                                <span align="center">EMPRUNTER</span><i class="material-icons">keyboard_arrow_right</i>
+                                <span align="center">PRETER</span><i class="material-icons">keyboard_arrow_right</i>
                             </button></td>
                     <tr>
-                        <td>Eponge</td>
-                        <td>1</td>
-                        <td>0</td>
-                        <td><button type="button" class="btn bg-orange btn-xs waves-effect">
-                                <span align="center">EMPRUNTER</span><i class="material-icons">keyboard_arrow_right</i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Clé USB</td>
-                        <td>350</td>
-                        <td>3</td>
-                        <td><button type="button" class="btn bg-orange btn-xs waves-effect">
-                                <span align="center">EMPRUNTER</span><i class="material-icons">keyboard_arrow_right</i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Ecran</td>
-                        <td>6</td>
-                        <td>5</td>
-                        <td><button type="button" class="btn bg-orange btn-xs waves-effect">
-                                <span align="center">EMPRUNTER</span><i class="material-icons">keyboard_arrow_right</i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Banc</td>
-                        <td>30</td>
-                        <td>9</td>
-                        <td><button type="button" class="btn bg-orange btn-xs waves-effect">
-                                <span align="center">EMPRUNTER</span><i class="material-icons">keyboard_arrow_right</i>
-                            </button>
-                        </td>
-                    </tr>
+                    {% endfor %}
                     </tbody>
 
                 </table>

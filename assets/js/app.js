@@ -9,6 +9,22 @@
 import '../css/app.css';
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
-// import $ from 'jquery';
+import $ from 'jquery';
 
-console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
+$('#app_notifs div').each(function(){
+    var type = $(this).data('type');
+
+    var icon ='';
+    if(type == 'success') icon = 'fas fa-check-circle';
+    if(type == 'danger') icon = 'fas fa-exclamation-circle';
+    if(type == 'info') icon = 'fas fa-info-circle';
+    if(type == 'warning') icon = 'fas fa-exclamation-triangle';
+
+    $.notify({
+        icon : icon,
+        message : $(this).html()
+    },{
+        type: $(this).data('type'),
+        delay : 20000
+    })
+});

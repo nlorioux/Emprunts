@@ -5,16 +5,16 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity("email")
- * @UniqueEntity("username")
- * @UniqueEntity("uid")
+ * @UniqueEntity("email", message="Cet email est déjà utilisé !")
+ * @UniqueEntity("username", message="Ce nom d'utilisateur est déjà utilisé !")
+ * @UniqueEntity("uid", message="Ce numéro d'étudiant est déjà utilisé !")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -30,7 +30,7 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\Email
+     * @Assert\Email()
      */
     private $email;
 
@@ -39,6 +39,12 @@ class User
      * @Assert\Length(min="8", minMessage="Votre mot de passe doit faire 8 caractères minimum.")
      */
     private $password;
+
+    /**
+     * @Assert\EqualTo(propertyPath="password", message="Vous avez tapé deux mots de passe différents !")
+     */
+
+    public $confirm_password;
 
     /**
      * @ORM\Column(type="json")
@@ -103,7 +109,10 @@ class User
 
     public function getRoles(): ?array
     {
-        return $this->roles;
+        $roles = $this->roles;
+        //Tout les users ont au moins le rôle user.
+        $roles[]='ROLE_USER';
+        return array_unique($roles);
     }
 
     public function setRoles(array $roles): self
@@ -147,5 +156,15 @@ class User
         $this->uid = $uid;
 
         return $this;
+    }
+
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
+
+    public function getSalt()
+    {
+        // TODO: Implement getSalt() method.
     }
 }
