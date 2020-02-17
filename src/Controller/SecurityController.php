@@ -19,10 +19,9 @@ use App\Form\RegistrationType;
 
 class SecurityController extends AbstractController
 {
-    /*
     /**
      * @Route("/inscription", name="security_registration")
-     *//*
+     */
     public function registration(Request $request, UserPasswordEncoderInterface $encoder){
         $manager = $this->getDoctrine()->getManager();
         $user= new User();
@@ -50,7 +49,7 @@ class SecurityController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-    */
+
 
     /**
      * @Route("/connexion", name="security_login")
@@ -70,7 +69,7 @@ class SecurityController extends AbstractController
      */
     public function index(Request $request, TokenStorageInterface $tokenStorage, SessionInterface $session, EventDispatcherInterface $dispatcher)
     {
-        $userManager = $this->getDoctrine()->getRepository(User::class);
+        $manager = $this->getDoctrine()->getManager();
         $id = $this->getParameter('oauth_id');
         $secret = $this->getParameter('oauth_secret');
         $base = $this->getParameter('oauth_base');
@@ -94,7 +93,7 @@ class SecurityController extends AbstractController
 
                 $username = $data['username'];
 
-                $user = $userManager->findOneBy(['username'=>$username]);
+                $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['username'=>$username]);
                 if($user === null){ // Création de l'utilisateur s'il n'existe pas
                     $user = new User();
                     $user->setUsername($username);
@@ -102,9 +101,11 @@ class SecurityController extends AbstractController
                     $user->setEmail($data['email']);
                     $user->setLastName($data['nom']);
                     $user->setFirstName($data['prenom']);
+                    $user->setUid("20192019");
 
 
-                    $userManager->updateUser($user);
+                    $manager->persist($user);
+                    $manager->flush();
                 }
 
                 // Connexion effective de l'utilisateur
