@@ -11,7 +11,7 @@ import '../css/app.css';
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 import $ from 'jquery';
 
-$('#app_notifs div').each(function(){
+$('#app-notifs div').each(function(){
     var type = $(this).data('type');
 
     var icon ='';

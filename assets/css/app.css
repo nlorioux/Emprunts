@@ -37,3 +37,12 @@ body {
 #app-notifs{
     display: none;
 }
+
+.fondgris{
+    background-color: #AAAAAA;
+}
+
+.redimension{
+    height:150px;
+    width:150px;
+}

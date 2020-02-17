@@ -24,12 +24,12 @@ security:
 
             provider: in_database
             form_login:
-                login_path: user_login
-                check_path: user_login
+                login_path: security_login
+                check_path: security_login
 
             logout:
                 path: security_logout
-                target: user_login
+                target: security_login
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

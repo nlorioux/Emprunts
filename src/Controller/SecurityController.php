@@ -14,6 +14,8 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+
 use App\Entity\User;
 use App\Form\RegistrationType;
 
@@ -54,8 +56,18 @@ class SecurityController extends AbstractController
     /**
      * @Route("/connexion", name="security_login")
      */
-    public function connexion(){
-        return $this->render('security/connexion.html.twig');
+    public function connexion(AuthenticationUtils $authenticationUtils){
+
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render('security/connexion.html.twig', [
+            'last_username' => $lastUsername,
+            'error'         => $error,
+        ]);
     }
 
     /**
@@ -101,7 +113,7 @@ class SecurityController extends AbstractController
                     $user->setEmail($data['email']);
                     $user->setLastName($data['nom']);
                     $user->setFirstName($data['prenom']);
-                    $user->setUid("20192019");
+                    $user->setUid("2019".mt_rand(0,9999));
 
 
                     $manager->persist($user);

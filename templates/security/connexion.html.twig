@@ -12,26 +12,42 @@
             </div>
 
             <div class="body">
-                <form action="{{ path('security_login') }}" method="post">
-                    <div class="form-group">
-                        <div class="form-line">
-                            <input placeholder="Nom d'utilisateur" required name="_username" type="text" class="form-control">
-                        </div>
-                    </div>
+                <center>
+                    <img src="https://wiki.centrale-marseille.fr/ginfo/_media/logobest.png?w=400&tok=de7747" alt="logo ginfo" class="redimension"/>
+                </center>
+                    <a class="btn btn-primary btn-block" href="{{ path('user_login') }}">Connexion via un compte My</a><br/>
+                <div class="card">
 
-                    <div class="form-group">
-                        <div class="form-line">
-                            <input placeholder="Mot de passe" required name="_password" type="password" class="form-control">
-                        </div>
-                    </div>
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
 
-                    <div class="form-group">
-                        <center>
-                            <button type="submit" class="btn btn-success">Valider</button>
-                        </center>
-                    </div>
-                </form>
-            </div>
+                    <form action="{{ path('security_login') }}" method="post">
+                        <div class="form-group form-float">
+                            <br/>
+                            <div class="form-line focused">
+                                <input required name="_username" type="text" class="form-control" value="{{ last_username }}">
+                                <label class="form-label">Nom d'utilisateur</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-float">
+                            <div class="form-line focused">
+                                <input required name="_password" type="password" class="form-control">
+                                <label class="form-label">Mot de passe</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <center>
+                                <button type="submit" class="btn btn-success">Valider</button>
+                            </center>
+                        </div>
+                    </form>
+                </div>
+                <br/>
+                <a href="{{ path('security_registration') }}">Inscription</a><br/>
+            </p>
 
         </div>
     </div>
