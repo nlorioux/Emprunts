@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Borrowing;
+use App\Entity\Equipment;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query;
 
 /**
  * @method Borrowing|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +19,16 @@ class BorrowingRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Borrowing::class);
+    }
+
+    public function findAllVisibleQuery(Equipment $equipment): Query
+    {
+        $qb = $this->createQueryBuilder('b')
+            ->setParameter('equipment', $equipment)
+            ->where('b.equipment = :equipment')
+            ->orderBy('b.startedOn', 'DESC')
+            ->getQuery();
+        return $qb;
     }
 
     // /**

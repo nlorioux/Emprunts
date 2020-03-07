@@ -31,11 +31,11 @@ class AppFixtures extends Fixture
             $user->setPassword($password)
                 ->setEmail("username$i@ec-m.fr")
                 ->setUid("2019$i$i$i$i");
-                if($i==1) {
-                    $user->setRoles(['ROLE_ADMIN']);
-                } else {
-                    $user->setRoles(['ROLE_USER']);
-                }
+            if($i==1) {
+                $user->setRoles(['ROLE_ADMIN']);
+            } else {
+                $user->setRoles(['ROLE_USER']);
+            }
             for($k = 1;$k<=2;$k++){
                 $equipment = new Equipment();
                 $equipment->setName("Materiel $i$k")
@@ -43,7 +43,7 @@ class AppFixtures extends Fixture
                     ->setQuantity("$k")
                     ->setAvailableStock($k-1)
                     ->setAllowedDays("3")
-                    ->setUid("$k$k$k");
+                    ->setUid("$i$k$k$k");
                 $manager->persist($equipment);
                 $borrowing = new Borrowing();
                 $borrowing->setLendBy($user)
@@ -52,7 +52,9 @@ class AppFixtures extends Fixture
                     ->setStartedOn(new \DateTime())
                     ->setEndedOn(new \DateTime())
                     ->setAllowedDays("7")
-                    ->setRemarks("Ce matériel avait déjà été abimé par un gros rageux.");
+                    ->setQuantity("1")
+                    ->setRemarks("Ce matériel avait déjà été abimé par un gros rageux.")
+                    ->setInProgress(False);
                 $manager->persist($borrowing);
             }
             $manager->persist($user);

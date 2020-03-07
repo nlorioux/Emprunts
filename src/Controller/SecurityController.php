@@ -34,7 +34,7 @@ class SecurityController extends AbstractController
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
             $user->setRoles(['ROLE_USER'])
-                ->setUid("20192019");
+                ->setUid("2019".mt_rand(0,9999));
 
             $manager->persist($user);
             $manager->flush();

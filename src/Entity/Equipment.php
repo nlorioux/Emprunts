@@ -2,8 +2,11 @@
 
 namespace App\Entity;
 
+use Cassandra\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -30,19 +33,33 @@ class Equipment
     private $description;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $image;
+
+    /**
      * @ORM\Column(type="integer")
+     * @Assert\Positive
      */
     private $quantity;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Positive
      */
     private $availableStock;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Positive
      */
     private $allowedDays;
+
+    /**
+     * One Equipment can have Many Borrowing
+     * @ORM\OneToMany(targetEntity="App\Entity\Borrowing", mappedBy="equipment")
+     */
+    private $borrowings;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
@@ -74,6 +91,18 @@ class Equipment
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }
@@ -124,5 +153,10 @@ class Equipment
         $this->uid = $uid;
 
         return $this;
+    }
+
+    public function getBorrowings(): PersistentCollection
+    {
+        return $this->borrowings;
     }
 }

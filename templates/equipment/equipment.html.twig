@@ -1,0 +1,113 @@
+{% extends 'base.html.twig' %}
+
+{% block titre_page %}MyCentraleEmprunts{% endblock %}
+
+{% block content %}
+
+    <div class="col-xs-12 col-md-12">
+        <div class="card">
+            <div class="header bg-orange">
+                <h2>
+                    {{ equipment.name }}
+                </h2>
+            </div>
+
+            <div class="body">
+                <div class="row">
+                    {% if equipment.image is null %} <img src="http://place-hold.it/400x300" alt="image de l'objet" class="col-lg-3"/>
+                    {% else %}
+                        <div class="col-xs-12 col-md-3 text-center">
+                                <img src="{{ asset('uploads/images/' ~ equipment.image) }}" alt="image de l'objet" class="hauteur"/>
+                        </div>
+                    {% endif %}
+
+                    <div class="col-xs-12 col-md-8">
+                        <br/>
+                        <span class="badge bg-pink">Quantité : {{ equipment.quantity }}</span>
+                        <span class="badge bg-pink">Stock disponible : {{ equipment.availableStock }}</span>
+                        <br/><br/>
+                        <div class="description retrait">
+                            <div class="titre">DESCRIPTION :</div>
+                                <br/>
+                            {{ equipment.description }}
+                        </div>
+                        <br/>
+                        {% if is_granted('ROLE_MEMBER') %}
+                            {% if equipment.availableStock >0 %}
+                                <a href="{{ path('borrowing_add', {id_equipment:equipment.id}) }}">
+                                    <button type="button" class="btn bg-orange btn-xs waves-effect">
+                                        <span align="center">PRETER</span><i class="material-icons">keyboard_arrow_right</i>
+                                    </button>
+                                </a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <br/><br/>
+                        <div class="titre alinea">
+                            DERNIERS EMPRUNTS
+                        </div>
+                        <div class="body table-responsive">
+                            <table id="equipment_list" class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Prêté par</th>
+                                    <th>Emprunté par</th>
+                                    <th>Quantité</th>
+                                    <th>Début de l'emprunt</th>
+                                    <th>Fin de l'emprunt</th>
+                                    <th>Remarques</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for borrowing in borrowings %}
+                                    {% if borrowing.inProgress %}
+                                    <tr class="in_progress">
+                                        <td>{{ borrowing.lendBy.username }}</td>
+                                        <td>{{ borrowing.borrowedBy.username }}</td>
+                                        <td>{{ borrowing.quantity }}</td>
+                                        <td>{{ borrowing.startedOn | date('d/m/Y') }}</td>
+                                        <td>{{ borrowing.endedOn | date('d/m/Y') }}</td>
+                                        <td><div class="en-cours">EN COURS</div></td>
+                                        <td>
+                                            {% if is_granted('ROLE_MEMBER') %}
+                                                <a href="{{ path('borrowing_end', {id_borrowing:borrowing.id}) }}">
+                                                    <button type="button" class="btn bg-red btn-xs waves-effect">
+                                                        <span align="center">RENDU</span><i class="material-icons">keyboard_arrow_right</i>
+                                                    </button>
+                                                </a>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% else %}
+                                    <tr>
+                                        <td>{{ borrowing.lendBy.username }}</td>
+                                        <td>{{ borrowing.borrowedBy.username }}</td>
+                                        <td>{{ borrowing.quantity }}</td>
+                                        <td>{{ borrowing.startedOn | date('d/m/Y') }}</td>
+                                        <td>{{ borrowing.endedOn | date('d/m/Y') }}</td>
+                                        <td>{{ borrowing.remarks }}</td>
+                                        <td></td>
+                                    </tr>
+                                    {% endif %}
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pagination">
+                    {{ knp_pagination_render(borrowings) }}
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

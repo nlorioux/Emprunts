@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 {% form_theme form 'bootstrap_3_layout.html.twig' %}
 
+{% block titre_page %}MyCentraleEmprunts{% endblock %}
 {% block additionnal_body_block %}signup-page ls-closed{% endblock %}
 
 {% block content %}
@@ -11,22 +12,22 @@
                             Formulaire d'inscription
                         </h2>
                     </div>
-                        <div class="body">
-                            {{ form_start(form) }}
+                    <div class="body">
+                        {{ form_start(form) }}
 
-                            {{ form_row(form.username, {'label': 'Nom d\'utilisateur'}) }}
-                            {{ form_row(form.firstName, {'label': 'Prénom'}) }}
-                            {{ form_row(form.lastName, {'label': 'Nom'}) }}
-                            {{ form_row(form.email, {'label': 'Email'}) }}
-                            {{ form_row(form.password, {'label': 'Mot de passe'}) }}
-                            {{ form_row(form.confirm_password, {'label': 'Confirmation du mot de passe'}) }}
+                        {{ form_row(form.username, {'label': 'Nom d\'utilisateur'}) }}
+                        {{ form_row(form.firstName, {'label': 'Prénom'}) }}
+                        {{ form_row(form.lastName, {'label': 'Nom'}) }}
+                        {{ form_row(form.email, {'label': 'Email'}) }}
+                        {{ form_row(form.password, {'label': 'Mot de passe'}) }}
+                        {{ form_row(form.confirm_password, {'label': 'Confirmation du mot de passe'}) }}
 
 
-                                <center>
-                                    <button type="submit" class="btn btn-success">Valider</button>
-                                </center>
-                            {{ form_end(form) }}
-                        </div>
+                            <center>
+                                <button type="submit" class="btn btn-success">Valider</button>
+                            </center>
+                        {{ form_end(form) }}
+                    </div>
             </div>
     </div>
 {% endblock %}

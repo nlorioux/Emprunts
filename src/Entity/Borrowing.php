@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BorrowingRepository")
@@ -24,7 +25,7 @@ class Borrowing
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $borrowedBy;
 
@@ -48,6 +49,17 @@ class Borrowing
      * @ORM\Column(type="integer")
      */
     private $allowedDays;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     * @Assert\Positive
+     */
+    private $quantity;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    private $inProgress;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -127,6 +139,30 @@ class Borrowing
     public function setAllowedDays(int $allowedDays): self
     {
         $this->allowedDays = $allowedDays;
+
+        return $this;
+    }
+
+    public function getQuantity(): ?int
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(int $quantity): self
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getInProgress(): ?bool
+    {
+        return $this->inProgress;
+    }
+
+    public function setInProgress(bool $inProgress): self
+    {
+        $this->inProgress = $inProgress;
 
         return $this;
     }

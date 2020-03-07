@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block titre_page %}MyCentraleEmprunts{% endblock %}
+
+{% block content %}
+<div class="col-xs-12 col-md-4">
+    <div class="card">
+        <div class="header bg-orange">
+            <h2>
+                {{ user.firstName }} {{ user.LastName }}
+            </h2>
+            {% if is_granted('ROLE_ADMIN') %}
+                <ul class="header-dropdown">
+                    <a class="fas fa-plus icon-white" href="{{ path('equipment_add') }}" data-toggle="tooltip" data-placement="bottom" title="Ajouter un équipement"></a>
+                </ul>
+            {% endif %}
+        </div>
+        <div class="body">
+            <br/>
+            Vous avez emprunté :
+            <br/><br/>
+            <div class="body table-responsive" style="padding: 0px">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>EQUIPEMENT</th>
+                        <th>QUANTITE</th>
+                        <th>FIN DE L'EMPRUNT</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user_borrowing in user_borrowings %}
+                        {% if user_borrowing.endedOn < today %}
+                        <tr class="late">
+                            <td><a href="{{ path('equipment_show',{id:user_borrowing.equipment.id}) }}">{{ user_borrowing.equipment.name }}</a></td>
+                            <td>{{ user_borrowing.quantity }}</td>
+                            <td>{{ user_borrowing.endedOn | date('d/m/Y') }}
+                            </td>
+                        </tr>
+                        {% else %}
+                            <tr>
+                                <td><a href="{{ path('equipment_show',{id:user_borrowing.equipment.id}) }}">{{ user_borrowing.equipment.name }}</a></td>
+                                <td>{{ user_borrowing.quantity }}</td>
+                                <td>{{ user_borrowing.endedOn | date('d/m/Y') }}
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xs-12 col-md-8">
+    <div class="card">
+        <div class="body">
+            <div class="body table-responsive" style="padding: 0px">
+                <table id="equipment_list" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>NOM</th>
+                        <th>QUANTITE</th>
+                        <th>STOCK DISPONIBLE</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for equipment in equipments %}
+                    <tr>
+                        <td><a href="{{ path('equipment_show',{id:equipment.id}) }}">{{ equipment.name }}</a></td>
+                        <td>{{ equipment.quantity }}</td>
+                        <td>{{ equipment.availableStock }}</td>
+                        <td>{% if equipment.availableStock > 0 %}
+                                {% if is_granted('ROLE_MEMBER') %}
+                                <a href="{{ path('borrowing_add', {id_equipment:equipment.id}) }}"><button type="button" class="btn bg-orange btn-xs waves-effect">
+                                    <span align="center">PRETER</span><i class="material-icons">keyboard_arrow_right</i>
+                                    </button></a>
+                                {% endif %}
+                            {% else %}
+                                <div class="en-cours">INDISPONIBLE</div>
+                                {% endif %}
+
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block page_js %}
+    <script src="{{ asset('build/equipmentList.js') }}"></script>
+{% endblock %}

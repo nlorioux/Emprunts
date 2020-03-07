@@ -19,6 +19,13 @@ class EquipmentRepository extends ServiceEntityRepository
         parent::__construct($registry, Equipment::class);
     }
 
+    public function findAllOrderByStock(){
+        $qb = $this->createQueryBuilder('e')
+            ->orderBy('e.availableStock','DESC')
+            ->getQuery()
+            ->getResult();
+        return $qb;
+    }
     // /**
     //  * @return Equipment[] Returns an array of Equipment objects
     //  */

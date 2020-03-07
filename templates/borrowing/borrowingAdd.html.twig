@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+
+{% block titre_page %}MyCentraleEmprunts{% endblock %}
+
+{% block content %}
+    <div class="center-box col-xs-12 col-md-6">
+        <div class="card">
+            <div class="header bg-orange">
+                <h2 class="center">
+                    Emprunter : {{ equipment.name }}
+                </h2>
+            </div>
+            <div class="body">
+                {{ form_start(form) }}
+
+                {{ form_row(form.startedOn, {'label': 'Date de début de l\'emprunt'}) }}
+                {{ form_row(form.borrowedBy, {'label': 'Emprunteur'}) }}
+                {{ form_row(form.quantity, {'label': 'Quantité'}) }}
+                {{ form_row(form.allowedDays, {'label':'Durée de l\'emprunt (en nb de jours)'}) }}
+
+                <center>
+                    <button type="submit" class="btn btn-success">Ajouter</button>
+                </center>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -11,6 +11,7 @@ import '../css/app.css';
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 import $ from 'jquery';
 
+
 $('#app-notifs div').each(function(){
     var type = $(this).data('type');
 
@@ -27,4 +28,8 @@ $('#app-notifs div').each(function(){
         type: $(this).data('type'),
         delay : 20000
     })
+});
+
+$('[data-toggle="tooltip"]').tooltip({
+    container: 'body'
 });
