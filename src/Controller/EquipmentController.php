@@ -53,7 +53,6 @@ class EquipmentController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/equipement/{id}", name="equipment_show")
      */

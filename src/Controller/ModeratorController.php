@@ -5,12 +5,8 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Equipment;
-use App\Entity\User;
 use App\Form\EquipmentType;
-use App\Repository\BorrowingRepository;
-use App\Repository\EquipmentRepository;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -21,7 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class ModeratorController extends AbstractController
 {
     /**
-     * @Route("/equipement/ajouter", name="equipment_add")
+     * @Route("/ajouter", name="equipment_add")
      */
     public function addEquipment(Request $request){
         $manager = $this->getDoctrine()->getManager();
