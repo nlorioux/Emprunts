@@ -15,12 +15,10 @@ class BorrowingVoter extends Voter
 {
     const STARTED_BORROWING = 'STARTED_BORROWING';
 
-    private $decisionManager;
     private $security;
 
-    public function __construct(AccessDecisionManagerInterface $decisionManager, Security $security)
+    public function __construct(Security $security)
     {
-        $this->decisionManager = $decisionManager;
         $this->security = $security;
     }
 
