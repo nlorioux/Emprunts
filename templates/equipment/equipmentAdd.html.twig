@@ -9,7 +9,11 @@
         <div class="card">
             <div class="header bg-orange">
                 <h2 class="center">
+                    {% if add %}
                     Ajouter un nouvel équipement
+                    {% else %}
+                        Modifier : {{ equipment.name }}
+                    {% endif %}
                 </h2>
             </div>
             <div class="body">
@@ -21,10 +25,11 @@
                 {{ form_row(form.allowedDays, {'label': 'Durée d\'emprunt par défault'}) }}
                 <div class="form-top-text">Photo de l'équipement</div>
                 {{ form_row(form.imageFile, {'type':'file'}) }}
-
-                <center>
-                    <button type="submit" class="btn btn-success">Ajouter</button>
-                </center>
+                {% if add %}
+                        <button type="submit" class="btn btn-success center-block">Ajouter</button>
+                {% else %}
+                        <button type="submit" class="btn btn-success center-block">Modifier</button>
+                {% endif %}
                 {{ form_end(form) }}
             </div>
         </div>

@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+
+{% block titre_page %}MyCentraleEmprunts{% endblock %}
+
+{% block content %}
+    <div class="col-xs-12 col-md-12">
+        <div class="card">
+            <div class="header bg-orange">
+                <h2>
+                    Panneau d'administration
+                </h2>
+
+            </div>
+
+            <div class="body">
+                <div class="row">
+
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                        <div class="info-box-3 bg-teal hover-zoom-effect">
+                            <div class="icon">
+                                <i class="fas fa-toolbox"></i>
+                            </div>
+                            <div class="content">
+                                <div class="text">EQUIPEMENTS ENREGISTRES</div>
+                                <div class="number">{{ nb_equipment }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                        <div class="info-box-3 bg-green hover-zoom-effect">
+                            <div class="icon">
+                                <i class="fas fa-angle-double-right admin-icons"></i>
+                            </div>
+                            <div class="content">
+                                <div class="text">EMPRUNTS EN COURS</div>
+                                <div class="number">{{ nb_in_progress }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                        <div class="info-box-3 bg-lime hover-zoom-effect">
+                            <div class="icon">
+                                <i class="fas fa-stopwatch"></i>
+                            </div>
+                            <div class="content">
+                                <div class="text">EMPRUNTS EN RETARD</div>
+                                <div class="number">?</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                        <div class="info-box-3 bg-yellow hover-zoom-effect">
+                            <div class="icon">
+                                <i class="fas fa-users-cog"></i>
+                            </div>
+                            <div class="content">
+                                <div class="text">ADMINISTRATEURS</div>
+                                <div class="number">?</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

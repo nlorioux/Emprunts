@@ -10,6 +10,13 @@
                 <h2>
                     {{ equipment.name }}
                 </h2>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <ul class="header-dropdown">
+                        <a class="fas fa-tools icon-white" href="{{ path('equipment_edit', {id:equipment.id}) }}" data-toggle="tooltip" data-placement="bottom" title="Modifier l'équipement"></a>
+                        <a class="" data-toggle="modal" data-target="#confirm-modal" href="#"> <span class="fas fa-trash-alt icon-white" data-toggle="tooltip"  data-placement="bottom" title="Supprimer l'équipement"></span> </a>
+                    </ul>
+                {% endif %}
+
             </div>
 
             <div class="body">
@@ -75,11 +82,13 @@
                                         <td><div class="en-cours">EN COURS</div></td>
                                         <td>
                                             {% if is_granted('ROLE_MEMBER') %}
-                                                <a href="{{ path('borrowing_end', {id_borrowing:borrowing.id}) }}">
-                                                    <button type="button" class="btn bg-red btn-xs waves-effect">
-                                                        <span align="center">RENDU</span><i class="material-icons">keyboard_arrow_right</i>
-                                                    </button>
-                                                </a>
+                                                {% if is_granted('STARTED_BORROWING', borrowing) %}
+                                                    <a href="{{ path('borrowing_end', {id_borrowing:borrowing.id}) }}">
+                                                        <button type="button" class="btn bg-red btn-xs waves-effect">
+                                                            <span align="center">RENDU</span><i class="material-icons">keyboard_arrow_right</i>
+                                                        </button>
+                                                    </a>
+                                                {% endif %}
                                             {% endif %}
                                         </td>
                                     </tr>
@@ -110,4 +119,23 @@
         </div>
     </div>
 
+
+    <div class="modal fade in" id="confirm-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal-col-red">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="defaultModalLabel">Suppression</h4>
+                </div>
+                <div class="modal-body">
+                    Etes-vous sûr de vouloir supprimer cet équipement ?
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ path('equipment_delete', {id:equipment.id}) }}">
+                        <button type="button" class="btn btn-link waves-effect">OUI</button>
+                    </a>
+                    <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">NON</button>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

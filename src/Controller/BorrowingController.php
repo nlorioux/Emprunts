@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 
 /**
@@ -75,6 +76,7 @@ class BorrowingController extends AbstractController
     /**
      * @Route("/rendu/{id_borrowing}", name="borrowing_end")
      * @ParamConverter("borrowing", options={"id"="id_borrowing"})
+     * @Security("is_granted('STARTED_BORROWING', borrowing)")
      */
     public function endBorrowing(Borrowing $borrowing, Request $request)
     {

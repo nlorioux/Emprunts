@@ -62,13 +62,17 @@ body {
 }
 
 .icon-white{
-    color:white;
+    color:white !important;
     font-size:16px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .icon-white:hover{
-    color:white;
+    color:white !important;
     text-decoration: none;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .en-cours{
@@ -116,4 +120,17 @@ a:focus{
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
     background-color: orange;
     border-color: orange;
+}
+
+.logo-site {
+    width: 50px;
+    margin-right: 20px;
+    float: left;
+@media (max-width: 950px) {
+    margin-left: 25px;
+}
+}
+
+.admin-icons{
+    vertical-align: middle;
 }

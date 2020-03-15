@@ -7,6 +7,7 @@ use App\Entity\Equipment;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query;
+use phpDocumentor\Reflection\Types\Integer;
 
 /**
  * @method Borrowing|null find($id, $lockMode = null, $lockVersion = null)
@@ -25,9 +26,18 @@ class BorrowingRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('b')
             ->setParameter('equipment', $equipment)
-            ->where('b.equipment = :equipment')
+            ->andWhere('b.equipment = :equipment')
             ->orderBy('b.startedOn', 'DESC')
             ->getQuery();
+        return $qb;
+    }
+
+    public function countAllInProgress() {
+        $qb = $this->createQueryBuilder('b')
+            ->andWhere('b.inProgress = True')
+            ->select('COUNT(b)')
+            ->getQuery()
+            ->getSingleScalarResult();
         return $qb;
     }
 

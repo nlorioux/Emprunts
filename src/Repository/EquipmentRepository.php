@@ -26,6 +26,15 @@ class EquipmentRepository extends ServiceEntityRepository
             ->getResult();
         return $qb;
     }
+
+    public function countAll(){
+        $qb = $this->createQueryBuilder('e')
+            ->select('COUNT(e)')
+            ->getQuery()
+            ->getSingleScalarResult();
+        return $qb;
+    }
+
     // /**
     //  * @return Equipment[] Returns an array of Equipment objects
     //  */
