@@ -66,7 +66,7 @@ class ModeratorController extends AbstractController
     /**
      * @Route("/supprimer/{id}", name="equipment_delete")
      */
-    public function deleteEquipment(Request $request, Equipment $equipment, BorrowingRepository $borrowing_repo){
+    public function deleteEquipment(Equipment $equipment, BorrowingRepository $borrowing_repo){
 
         $manager = $this->getDoctrine()->getManager();
         $borrowings = $borrowing_repo->findBy(

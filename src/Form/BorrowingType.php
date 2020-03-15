@@ -24,7 +24,7 @@ class BorrowingType extends AbstractType
             ])
             ->add('allowedDays')
             ->add('borrowedBy', EntityType::class,[
-                'class'=>User::class,
+                'class'=> User::class,
                 'choice_label'=>'username',
                 'attr'=>["data-live-search"=>true],
                 'placeholder'=>'Qui emprunte ?'

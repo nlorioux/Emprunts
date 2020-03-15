@@ -75,6 +75,20 @@ body {
     padding-right: 10px;
 }
 
+.icon-red{
+    color:red !important;
+    font-size:16px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.icon-red:hover{
+    color:red !important;
+    text-decoration: none;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 .en-cours{
     color:orange;
 }
@@ -133,4 +147,8 @@ a:focus{
 
 .admin-icons{
     vertical-align: middle;
+}
+
+.alinea-button{
+    margin-left:25px;
 }

@@ -47,7 +47,7 @@
                             </div>
                             <div class="content">
                                 <div class="text">EMPRUNTS EN RETARD</div>
-                                <div class="number">?</div>
+                                <div class="number">{{ nb_late }}</div>
                             </div>
                         </div>
                     </div>
@@ -59,21 +59,68 @@
                             </div>
                             <div class="content">
                                 <div class="text">ADMINISTRATEURS</div>
-                                <div class="number">?</div>
+                                <div class="number">{{ nb_admin }}</div>
                             </div>
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
-
 
         </div>
     </div>
 
+    {% if is_granted('ROLE_SUPER_ADMIN') %}
+        <div class="col-xs-12 col-md-12">
+            <div class="card">
+                <div class="header bg-orange">
+                    <h2>
+                        Gestion des droits d'administrateurs
+                    </h2>
 
+                </div>
 
+                <div class="body">
+                    <div class="row">
+
+                        <br/>
+                        <div class="titre alinea">
+                            LISTE DES ADMINISTRATEURS
+                        </div>
+                        <br/>
+
+                        <a href="{{ path('admin_add') }}"><button type="button" class="btn bg-light-green waves-effect alinea-button">Ajouter un administrateur</button></a>
+
+                        <div class="body table-responsive">
+                            <table id="equipment_list" class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Prénom</th>
+                                    <th>Nom</th>
+                                    <th>Role</th>
+                                    <th></th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for admin in admins %}
+                                    <tr>
+                                        <td>{{ admin.firstName }}</td>
+                                        <td>{{ admin.LastName }}</td>
+                                          <td>{{ admin.roles[0] }}</td>
+                                        <td>
+                                            <a class="fas fa-times icon-red" href="{{ path('admin_dismiss',{id:admin.id}) }}" data-toggle="tooltip" data-placement="bottom" title="Destituer"></i>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+             </div>
+        </div>
+    {% endif %}
 
 {% endblock %}

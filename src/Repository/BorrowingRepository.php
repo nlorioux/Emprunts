@@ -41,6 +41,17 @@ class BorrowingRepository extends ServiceEntityRepository
         return $qb;
     }
 
+    public function countAllLate($today) {
+        $qb = $this->createQueryBuilder('b')
+            ->setParameter('today', $today)
+            ->andWhere('b.inProgress = True')
+            ->andWhere('b.endedOn < :today')
+            ->select('COUNT(b)')
+            ->getQuery()
+            ->getSingleScalarResult();
+        return $qb;
+    }
+
     // /**
     //  * @return Borrowing[] Returns an array of Borrowing objects
     //  */
