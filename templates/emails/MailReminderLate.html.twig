@@ -1,0 +1,23 @@
+<div>
+    <p>
+        Bonjour,
+    </p>
+
+    <p>
+        Vous avez emprunté récemment du matériel ({{ borrowing.equipment.name }}) à une association.
+        La fin de cet emprunt était programmé pour le {{ borrowing.endedOn | date('d/m/Y') }}, or l'équipement n'a toujours pas été rendu.
+    </p>
+
+    <p>
+        Nous vous prions bien vouloir le retourner rapidemment auprès de son association d'origine.
+    </p>
+
+    <p>
+        Cordialement,
+        MyCentraleEmprunt.
+    </p>
+
+    <p>
+        PS : Cet email est issu d'un envoi automatique. Il est donc inutile d'y répondre.
+    </p>
+</div>
